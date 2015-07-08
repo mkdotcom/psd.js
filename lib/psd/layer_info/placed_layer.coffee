@@ -9,6 +9,7 @@ module.exports = class PlacedLayer extends LayerInfo
       @file.seek 12, true # Skip sig
       @data = new Descriptor(@file).parse()
     catch e
+      @data = {}
       @data['Trnf'] = [0, 0, 0, 0, 0, 0, 0, 0]
 
   transform: ->
