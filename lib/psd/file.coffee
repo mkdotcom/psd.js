@@ -28,6 +28,9 @@ module.exports = class File
     LongLong:
       code: '>q'
       length: 8
+    ULongLong:
+      code: '>Q'
+      length: 8
 
   for own format, info of FORMATS then do (format, info) =>
     @::["read#{format}"] = -> @readf(info.code, info.length)[0]
