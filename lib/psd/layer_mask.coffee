@@ -28,7 +28,7 @@ module.exports = class LayerMask
     return if maskSize <= 0
 
     if @bitDepth == 16
-      console.log('16 bit psd detected')
+      @file.read(16)
 
     @parseLayers()
     @parseGlobalMask()
