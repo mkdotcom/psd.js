@@ -17,6 +17,7 @@ module.exports = class LayerMask
     @layers = []
     @mergedAlpha = false
     @globalMask = null
+    @bitDepth = @header.depth || 8
 
   skip: -> @file.seek @file.readInt(), true
 
@@ -25,6 +26,9 @@ module.exports = class LayerMask
     finish = maskSize + @file.tell()
 
     return if maskSize <= 0
+
+    if @bitDepth == 16
+      @file.read(16)
 
     @parseLayers()
     @parseGlobalMask()

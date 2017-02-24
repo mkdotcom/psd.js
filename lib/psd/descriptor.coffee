@@ -114,7 +114,7 @@ module.exports = class Descriptor
 
   # Parses a list/array of Items.
   parseList: ->
-    count = @file.readInt()
+    count = @file.readUInt()
     items = []
 
     for i in [0...count]
@@ -126,11 +126,20 @@ module.exports = class Descriptor
   # type is extremely rare. In fact, it's so rare, that I've never run into it
   # among any of my PSDs.
   parseObjectArray: ->
-    throw "Descriptor object array not implemented yet @ #{@file.tell()}"
+    count = @file.readInt()
+    items_in_object = @file.readInt()
+    wat = @file.readShort()
+
+    obj = {}
+    for i in [0...count]
+      len = @file.readUInt()
+      @file.seek len, true
+    obj
+
 
   # Parses raw byte data of arbitrary length.
   parseRawData: ->
-    len = @file.readInt()
+    len = @file.readUInt()
     @file.read(len)
 
   # Parses a Reference, which is an array of items of multiple types.
